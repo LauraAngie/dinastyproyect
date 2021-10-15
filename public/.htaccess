@@ -3,7 +3,9 @@
         Options -MultiViews -Indexes
     </IfModule>
 
-    RewriteEngine On
+    RewriteEngine On 
+    RewriteBase /
+    RewriteCond %{HTTP_HOST} !^(www.go-goby.com)?$
 
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
@@ -17,5 +19,5 @@
     # Send Requests To Front Controller...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^ index.php [L]
+    RewriteRule ^([^?]*) index.php?route=$1 [L,QSA]
 </IfModule>
